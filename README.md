@@ -20,46 +20,22 @@ Make sure you have the following installed on your machine:
 Node.js (>= 14.x.x)
 npm or yarn (depending on your package manager preference)
 Steps
-Clone this repository:
-
-bash
-Copy
-Edit
+1. Clone this repository:
 git clone https://github.com/your-username/weather-app.git
 cd weather-app
-Install dependencies:
 
-Using npm:
+2. Install dependencies:
+Using npm: npm install Or using yarn: yarn install
 
-bash
-Copy
-Edit
-npm install
-Or using yarn:
-
-bash
-Copy
-Edit
-yarn install
-Create a .env.local file in the root directory and add your Weather API key:
-
-env
-Copy
-Edit
+3. Create a .env.local file in the root directory and add your Weather API key:
 NEXT_PUBLIC_WEATHER_API_KEY=your-api-key
-Run the development server:
 
-bash
-Copy
-Edit
+4. Run the development server:
 npm run dev
 Or using yarn:
-
-bash
-Copy
-Edit
 yarn dev
-Open your browser and go to http://localhost:3000 to see the app in action.
+
+5. Open your browser and go to http://localhost:3000 to see the app in action.
 
 How to Use
 On the homepage, you’ll find a search bar where you can enter a city name.

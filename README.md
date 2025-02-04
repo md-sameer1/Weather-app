@@ -1,4 +1,5 @@
 Weather Forecasting App
+
 A weather forecasting app built with Next.js, TypeScript, and Tailwind CSS that allows users to view the current weather and forecasts for various locations worldwide.
 
 Features

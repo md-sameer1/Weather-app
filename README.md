@@ -28,7 +28,7 @@ npm or yarn (depending on your package manager preference)
 Steps
 
 1. Clone this repository:
-   git clone https://github.com/your-username/weather-app.git
+   git clone https://github.com/md-sameer1/weather-app.git
    cd weather-app
 
 2. Install dependencies:

@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState, useCallback } from "react";
+import { useEffect, useState } from "react";
 import Image from "next/image";
 import { ThemeProvider, useTheme } from "next-themes";
 import { Sun, Moon, Droplets, Wind, Thermometer } from "lucide-react";
@@ -47,37 +47,54 @@ export default function Home({ initialWeather }: { initialWeather: Weather }) {
   const [mounted, setMounted] = useState(false);
   const { theme, setTheme } = useTheme();
   const [query, setQuery] = useState("");
-  const { weather, setWeather, savedLocations, addLocation } =
-    useWeatherStore();
+
+  const {
+    weather,
+    setWeather,
+    savedLocations,
+    addLocation,
+    clearAllLocations,
+  } = useWeatherStore();
   const [isOffline, setIsOffline] = useState(false);
+
+  console.log("saved locations", savedLocations);
 
   const API_KEY = process.env.NEXT_PUBLIC_WEATHER_API_KEY;
 
-  const fetchWeather = useCallback(
-    async (location: string) => {
-      if (!location) return;
-      try {
-        const res = await fetch(
-          `http://api.weatherapi.com/v1/forecast.json?key=${API_KEY}&q=${location}&days=5`
-        );
-        const data = await res.json();
-        if (data?.location?.name !== weather?.location?.name) {
-          setWeather(data);
-          addLocation(data.location.name);
-        }
-      } catch (error) {
-        toast.error("Error fetching weather");
+  const fetchWeather = async (location: string) => {
+    if (!location) return;
+    try {
+      const res = await fetch(
+        `http://api.weatherapi.com/v1/forecast.json?key=${API_KEY}&q=${location}&days=5`
+      );
 
-        console.error("Error fetching weather:", error);
+      if (!res.ok) {
+        const errorData = await res.json();
+        console.log("Error fetching weather:", errorData?.error?.message);
+        toast.error(`Failed to fetch weather: ${errorData.error?.message}`);
+        return;
       }
-    },
-    [API_KEY, addLocation, setWeather, weather]
-  );
+
+      const data = await res.json();
+
+      if (data?.location?.name !== weather?.location?.name) {
+        setWeather(data);
+        addLocation(`${data?.location?.name}, ${data?.location?.country}`);
+      }
+    } catch (error) {
+      toast.error("Error fetching weather");
+
+      console.error("Error fetching weather:", error);
+    }
+  };
+
+  const clearSavedLocations = () => {
+    clearAllLocations();
+  };
 
   useEffect(() => {
     setMounted(true);
     if (!weather) setWeather(initialWeather);
-
     navigator.geolocation.getCurrentPosition(
       (position) => {
         const lat = position.coords.latitude;
@@ -100,7 +117,8 @@ export default function Home({ initialWeather }: { initialWeather: Weather }) {
       window.removeEventListener("offline", handleOffline);
       window.removeEventListener("online", handleOnline);
     };
-  }, [fetchWeather, initialWeather, setWeather, weather]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
     <ThemeProvider attribute="class">
@@ -122,6 +140,7 @@ export default function Home({ initialWeather }: { initialWeather: Weather }) {
               fetchWeather={fetchWeather}
               query={query}
               setQuery={setQuery}
+              savedLocations={savedLocations}
             />
 
             <div className="mt-4 flex felx-row items-center justify-center">
@@ -135,22 +154,30 @@ export default function Home({ initialWeather }: { initialWeather: Weather }) {
                   {loc}
                 </div>
               ))}
+              <button
+                className="cursor-pointer bg-gray-200 dark:bg-gray-700 p-2 rounded-md mx-1"
+                onClick={clearSavedLocations}>
+                Clear All
+              </button>
             </div>
 
             {weather && (
-              <div className="flex flex-col items-center justify-center mt-6 p-4 bg-white dark:bg-gray-800 text-black dark:text-white rounded-lg shadow-lg w-50 text-center">
+              <div className="flex flex-col items-center justify-center mt-6 p-4 bg-white dark:bg-gray-800 text-black dark:text-white rounded-lg shadow-lg  text-center">
                 <h2 className="text-xl font-semibold">
                   {weather?.location?.name}, {weather?.location?.country}
                 </h2>
 
                 <div>
-                  <Image
-                    src={`https:${weather?.current?.condition?.icon}`}
-                    alt="Weather Icon"
-                    className="mx-auto mt-2"
-                    width={64}
-                    height={64}
-                  />
+                  {weather?.current?.condition?.icon && (
+                    <Image
+                      src={`https:${weather?.current?.condition?.icon}`}
+                      alt="Weather Icon"
+                      className="mx-auto mt-2"
+                      width={64}
+                      height={64}
+                    />
+                  )}
+
                   <p className="text-lg">
                     {weather?.current?.temp_c}°C / {weather?.current?.temp_f}°F
                   </p>

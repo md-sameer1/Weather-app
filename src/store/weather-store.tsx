@@ -7,6 +7,7 @@ interface WeatherStore {
   setWeather: (data: Weather) => void;
   savedLocations: string[];
   addLocation: (location: string) => void;
+  clearAllLocations: () => void;
 }
 
 export const useWeatherStore = create<WeatherStore>()(
@@ -15,11 +16,12 @@ export const useWeatherStore = create<WeatherStore>()(
       weather: null,
       setWeather: (data: Weather) => set({ weather: data }),
       savedLocations: [],
+      clearAllLocations: () => set({ savedLocations: [] }),
       addLocation: (location: string) =>
         set((state: { savedLocations: string[] }) => {
           const updated = [
             ...new Set([location, ...state.savedLocations]),
-          ].slice(0, 3);
+          ].slice(0, 4);
           return { savedLocations: updated };
         }),
     }),

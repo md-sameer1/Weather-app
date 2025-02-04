@@ -57,8 +57,6 @@ export default function Home({ initialWeather }: { initialWeather: Weather }) {
   } = useWeatherStore();
   const [isOffline, setIsOffline] = useState(false);
 
-  console.log("saved locations", savedLocations);
-
   const API_KEY = process.env.NEXT_PUBLIC_WEATHER_API_KEY;
 
   const fetchWeather = async (location: string) => {

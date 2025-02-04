@@ -100,7 +100,7 @@ export default function Home({ initialWeather }: { initialWeather: Weather }) {
       window.removeEventListener("offline", handleOffline);
       window.removeEventListener("online", handleOnline);
     };
-  }, [fetchWeather, initialWeather, setWeather]);
+  }, [fetchWeather, initialWeather, setWeather, weather]);
 
   return (
     <ThemeProvider attribute="class">

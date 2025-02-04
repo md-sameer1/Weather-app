@@ -65,7 +65,13 @@ export default function Home({ initialWeather }: { initialWeather: Weather }) {
     if (!location) return;
     try {
       const res = await fetch(
-        `http://api.weatherapi.com/v1/forecast.json?key=${API_KEY}&q=${location}&days=5`
+        `https://api.weatherapi.com/v1/forecast.json?key=${API_KEY}&q=${location}&days=5`,
+        {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
       );
 
       if (!res.ok) {
@@ -122,7 +128,7 @@ export default function Home({ initialWeather }: { initialWeather: Weather }) {
 
   return (
     <ThemeProvider attribute="class">
-      <div className="min-h-screen flex flex-col items-center justify-center bg-white dark:bg-gray-900 text-gray-900 dark:text-white p-4">
+      <div className="px-4 sm:px-8 lg:px-16 min-h-screen flex flex-col items-center justify-center bg-white dark:bg-gray-900 text-gray-900 dark:text-white p-4">
         <button
           onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
           className="p-2 bg-gray-200 dark:bg-gray-700 rounded-md mb-4">
@@ -162,7 +168,7 @@ export default function Home({ initialWeather }: { initialWeather: Weather }) {
             </div>
 
             {weather && (
-              <div className="flex flex-col items-center justify-center mt-6 p-4 bg-white dark:bg-gray-800 text-black dark:text-white rounded-lg shadow-lg  text-center">
+              <div className="grid-cols-1 md:grid-cols-2 lg:grid-cols-3 flex flex-col items-center justify-center mt-6 p-1 bg-white dark:bg-gray-800 text-black dark:text-white rounded-lg shadow-lg  text-center">
                 <h2 className="text-xl font-semibold">
                   {weather?.location?.name}, {weather?.location?.country}
                 </h2>
@@ -185,7 +191,7 @@ export default function Home({ initialWeather }: { initialWeather: Weather }) {
 
                 <p className="text-lg">{weather?.current?.condition?.text}</p>
 
-                <div className="flex flex-row justify-center mt-2">
+                <div className="flex flex-row justify-center mt-1">
                   <DataCard
                     icon={<Thermometer size={24} />}
                     name={"Real Feel"}
@@ -221,9 +227,7 @@ export default function Home({ initialWeather }: { initialWeather: Weather }) {
                         };
                       };
                     }) => (
-                      <div key={day.date} className="mx-1 mt-4">
-                        <ForecastCard day={day} />
-                      </div>
+                      <ForecastCard key={day.date} day={day} />
                     )
                   )}
                 </div>

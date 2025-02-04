@@ -12,7 +12,7 @@ export default function SearchBar({
   savedLocations: string[];
 }) {
   return (
-    <div className="flex gap-2">
+    <div className="flex gap-2 flex-col sm:flex-row items-center justify-center">
       <input
         type="text"
         className="p-2 rounded-lg text-black dark:text-white dark:bg-gray-700"

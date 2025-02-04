@@ -128,7 +128,7 @@ export default function Home({ initialWeather }: { initialWeather: Weather }) {
 
   return (
     <ThemeProvider attribute="class">
-      <div className="px-4 sm:px-8 lg:px-16 min-h-screen flex flex-col items-center justify-center bg-white dark:bg-gray-900 text-gray-900 dark:text-white p-4">
+      <div className="px-210 sm:px-8 lg:px-16 min-h-screen flex flex-col items-center justify-center bg-white dark:bg-gray-900 text-gray-900 dark:text-white">
         <button
           onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
           className="p-2 bg-gray-200 dark:bg-gray-700 rounded-md mb-4">
@@ -168,7 +168,7 @@ export default function Home({ initialWeather }: { initialWeather: Weather }) {
             </div>
 
             {weather && (
-              <div className="grid-cols-1 md:grid-cols-2 lg:grid-cols-3 flex flex-col items-center justify-center mt-6 p-1 bg-white dark:bg-gray-800 text-black dark:text-white rounded-lg shadow-lg  text-center">
+              <div className="grid-cols-1 md:grid-cols-2 lg:grid-cols-3 flex flex-col items-center justify-center mt-6 p-4 bg-white dark:bg-gray-800 text-black dark:text-white rounded-lg shadow-lg  text-center">
                 <h2 className="text-xl font-semibold">
                   {weather?.location?.name}, {weather?.location?.country}
                 </h2>
@@ -212,7 +212,7 @@ export default function Home({ initialWeather }: { initialWeather: Weather }) {
                 </div>
 
                 <h3 className="text-lg font-semibold mt-4">5-Day Forecast</h3>
-                <div className="flex flex-row justify-center ">
+                <div className="flex flex-row justify-center">
                   {weather?.forecast?.forecastday.map(
                     (day: {
                       date: string;

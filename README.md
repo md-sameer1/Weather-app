@@ -2,6 +2,11 @@ Weather Forecasting App
 
 A weather forecasting app built with Next.js, TypeScript, and Tailwind CSS that allows users to view the current weather and forecasts for various locations worldwide.
 
+Screenshot
+Here’s a preview of the app:
+
+![Weather App Screenshot](./src/assets/screenshot.png)
+
 Features
 Current Weather Information: Display current weather details including temperature, humidity, wind speed, and weather description.
 Weather Forecast: View a 7-day weather forecast for any selected city.
@@ -21,20 +26,21 @@ Make sure you have the following installed on your machine:
 Node.js (>= 14.x.x)
 npm or yarn (depending on your package manager preference)
 Steps
+
 1. Clone this repository:
-git clone https://github.com/your-username/weather-app.git
-cd weather-app
+   git clone https://github.com/your-username/weather-app.git
+   cd weather-app
 
 2. Install dependencies:
-Using npm: npm install Or using yarn: yarn install
+   Using npm: npm install Or using yarn: yarn install
 
 3. Create a .env.local file in the root directory and add your Weather API key:
-NEXT_PUBLIC_WEATHER_API_KEY=your-api-key
+   NEXT_PUBLIC_WEATHER_API_KEY=your-api-key
 
 4. Run the development server:
-npm run dev
-Or using yarn:
-yarn dev
+   npm run dev
+   Or
+   using yarn: yarn dev
 
 5. Open your browser and go to http://localhost:3000 to see the app in action.
 

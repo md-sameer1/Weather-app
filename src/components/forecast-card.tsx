@@ -21,7 +21,7 @@ const ForecastCard = ({
   return (
     <div
       key={day.date}
-      className="mx-1 bg-gray-100 dark:bg-gray-700 rounded-md grid-cols-2 sm:grid-cols-3 md:grid-cols-5 p-1">
+      className="bg-gray-100 dark:bg-gray-700 rounded-md p-3 felx flex-col items-center w-full sm:w-48 md:w-56 lg:w-64">
       <p className="font-semibold">{day.date}</p>
       <Image
         src={`https:${day?.day?.condition?.icon}`}

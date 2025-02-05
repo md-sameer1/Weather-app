@@ -210,7 +210,7 @@ export default function Home({ initialWeather }: { initialWeather: Weather }) {
                 </div>
 
                 <h3 className="text-lg font-semibold mt-4">5-Day Forecast</h3>
-                <div className="flex flex-row justify-center">
+                <div className="flex flex-wrap justify-center gap-4">
                   {weather?.forecast?.forecastday.map(
                     (day: {
                       date: string;
